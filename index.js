@@ -22,7 +22,12 @@ client.connect(err => {
 
     const products = client.db(`${process.env.DB_NAME}`).collection("products");
 
-    console.log('Connection OK');
+    app.post('/addProduct', (req, res)=>{
+        products.insertOne(req.body)
+            .then(result=>{
+                res.send(result.insertedCount > 0);
+            })
+    })
 
 });
 
